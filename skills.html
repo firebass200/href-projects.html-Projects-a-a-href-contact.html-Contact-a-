@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skills</title>
+    <style>
+        /* Import Google Fonts for better typography */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1500&q=80'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            clip-path: circle(80% at 50% 50%);
+            position: relative;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: 700;
+            align-self: flex-start;
+            width: 100%;
+        }
+        input {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 15px;
+            outline: none;
+            font-size: 1em;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+        input::placeholder {
+            color: #ddd;
+        }
+        input:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        button {
+            padding: 12px 25px;
+            background: #8e2de2;
+            background: -webkit-linear-gradient(to right, #4a00e0, #8e2de2);
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            border: none;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 30px;
+        }
+        button:hover {
+            background: #6a00d2;
+            transform: scale(1.05);
+        }
+        .skills-list {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .skill-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .navigation a {
+            margin: 0 15px;
+            padding: 10px 25px;
+            background: #8e2de2;
+            background: -webkit-linear-gradient(to right, #4a00e0, #8e2de2);
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            transform: translateY(-5px);
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            button {
+                width: 100%;
+            }
+            .navigation a {
+                display: block;
+                margin: 10px 0;
+            }
+            .skills-list {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Skills</h2>
+        <form id="skillsForm">
+            <label for="skill">Add a Skill:</label>
+            <input type="text" id="skill" placeholder="e.g., JavaScript" required>
+            <button type="submit">Add Skill</button>
+        </form>
+        <div class="skills-list" id="skillsList"></div>
+        <div class="navigation">
+            <a href="work.html">Back</a>
+            <a href="projects.html">Next</a>
+        </div>
+    </div>
+
+    <script>
+        // Load saved skills
+        document.addEventListener('DOMContentLoaded', () => {
+            const skills = JSON.parse(localStorage.getItem('skills')) || [];
+            const skillsList = document.getElementById('skillsList');
+            skills.forEach(skill => {
+                const div = document.createElement('div');
+                div.className = 'skill-item';
+                div.textContent = skill;
+                skillsList.appendChild(div);
+            });
+        });
+
+        // Add new skill
+        document.getElementById('skillsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const skillInput = document.getElementById('skill');
+            const skill = skillInput.value.trim();
+            if(skill) {
+                const skills = JSON.parse(localStorage.getItem('skills')) || [];
+                skills.push(skill);
+                localStorage.setItem('skills', JSON.stringify(skills));
+
+                const div = document.createElement('div');
+                div.className = 'skill-item';
+                div.textContent = skill;
+                document.getElementById('skillsList').appendChild(div);
+
+                skillInput.value = '';
+                alert('Skill Added!');
+            }
+        });
+    </script>
+</body>
+</html>

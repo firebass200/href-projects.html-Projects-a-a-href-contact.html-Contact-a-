@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Overview</title>
+    <style>
+        /* Import Google Fonts for better typography */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1500&q=80'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            filter: blur(35px);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+        }
+        section {
+            margin-bottom: 25px;
+        }
+        section h3 {
+            border-bottom: 2px solid #fff;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        p, li {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .projects-overview div {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: background 0.3s ease;
+        }
+        .projects-overview div:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .navigation a {
+            margin: 0 15px;
+            padding: 12px 30px;
+            background: #ff7e5f;
+            background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .navigation a:hover {
+            transform: translateY(-5px);
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            section h3 {
+                font-size: 1.3em;
+            }
+            .navigation a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Overview</h2>
+        <section id="personalOverview">
+            <h3>Personal Information</h3>
+            <p><strong>Name:</strong> <span id="overviewName"></span></p>
+            <p><strong>Email:</strong> <span id="overviewEmail"></span></p>
+            <p><strong>Phone:</strong> <span id="overviewPhone"></span></p>
+            <p><strong>Bio:</strong> <span id="overviewBio"></span></p>
+        </section>
+        <section id="educationOverview">
+            <h3>Education</h3>
+            <p><strong>Institution:</strong> <span id="overviewInstitution"></span></p>
+            <p><strong>Degree:</strong> <span id="overviewDegree"></span></p>
+            <p><strong>Year:</strong> <span id="overviewYear"></span></p>
+        </section>
+        <section id="workOverview">
+            <h3>Work Experience</h3>
+            <p><strong>Company:</strong> <span id="overviewCompany"></span></p>
+            <p><strong>Position:</strong> <span id="overviewPosition"></span></p>
+            <p><strong>Duration:</strong> <span id="overviewDuration"></span></p>
+            <p><strong>Description:</strong> <span id="overviewWorkDescription"></span></p>
+        </section>
+        <section id="skillsOverview">
+            <h3>Skills</h3>
+            <ul id="overviewSkills"></ul>
+        </section>
+        <section id="projectsOverview" class="projects-overview">
+            <h3>Projects</h3>
+            <!-- Projects will be dynamically inserted here -->
+        </section>
+        <section id="contactOverview">
+            <h3>Contact</h3>
+            <p><strong>Name:</strong> <span id="overviewContactName"></span></p>
+            <p><strong>Email:</strong> <span id="overviewContactEmail"></span></p>
+            <p><strong>Message:</strong> <span id="overviewMessage"></span></p>
+        </section>
+        <div class="navigation">
+            <a href="contact.html">Back</a>
+            <a href="index.html">Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Populate Overview
+        document.addEventListener('DOMContentLoaded', () => {
+            // Personal Information
+            if(localStorage.getItem('personal')) {
+                const personal = JSON.parse(localStorage.getItem('personal'));
+                document.getElementById('overviewName').textContent = personal.name || 'N/A';
+                document.getElementById('overviewEmail').textContent = personal.email || 'N/A';
+                document.getElementById('overviewPhone').textContent = personal.phone || 'N/A';
+                document.getElementById('overviewBio').textContent = personal.bio || 'N/A';
+            }
+
+            // Education
+            if(localStorage.getItem('education')) {
+                const education = JSON.parse(localStorage.getItem('education'));
+                document.getElementById('overviewInstitution').textContent = education.institution || 'N/A';
+                document.getElementById('overviewDegree').textContent = education.degree || 'N/A';
+                document.getElementById('overviewYear').textContent = education.year || 'N/A';
+            }
+
+            // Work Experience
+            if(localStorage.getItem('work')) {
+                const work = JSON.parse(localStorage.getItem('work'));
+                document.getElementById('overviewCompany').textContent = work.company || 'N/A';
+                document.getElementById('overviewPosition').textContent = work.position || 'N/A';
+                document.getElementById('overviewDuration').textContent = work.duration || 'N/A';
+                document.getElementById('overviewWorkDescription').textContent = work.description || 'N/A';
+            }
+
+            // Skills
+            if(localStorage.getItem('skills')) {
+                const skills = JSON.parse(localStorage.getItem('skills'));
+                const skillsList = document.getElementById('overviewSkills');
+                skills.forEach(skill => {
+                    const li = document.createElement('li');
+                    li.textContent = skill;
+                    skillsList.appendChild(li);
+                });
+            }
+
+            // Projects
+            if(localStorage.getItem('projects')) {
+                const projects = JSON.parse(localStorage.getItem('projects'));
+                const projectsDiv = document.getElementById('projectsOverview');
+                projects.forEach(project => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<strong>${project.name}</strong><p>${project.description}</p>`;
+                    projectsDiv.appendChild(div);
+                });
+            }
+
+            // Contact
+            if(localStorage.getItem('contact')) {
+                const contact = JSON.parse(localStorage.getItem('contact'));
+                document.getElementById('overviewContactName').textContent = contact.name || 'N/A';
+                document.getElementById('overviewContactEmail').textContent = contact.email || 'N/A';
+                document.getElementById('overviewMessage').textContent = contact.message || 'N/A';
+            }
+        });
+    </script>
+</body>
+</html>

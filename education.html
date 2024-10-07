@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Education</title>
+    <style>
+        /* Import Google Fonts for better typography */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1500&q=80'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            clip-path: polygon(0 0%, 100% 10%, 100% 90%, 0 100%);
+            position: relative;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .education-entry {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+        .education-entry:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        input, textarea {
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 15px;
+            outline: none;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+        input::placeholder, textarea::placeholder {
+            color: #ddd;
+        }
+        input:focus, textarea:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        button {
+            padding: 12px 20px;
+            background: #ff5722;
+            border: none;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            align-self: center;
+            width: 150px;
+        }
+        button:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .navigation a {
+            margin: 0 15px;
+            padding: 10px 25px;
+            background: #ff7e5f;
+            background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            transform: translateY(-5px);
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            button {
+                width: 100%;
+            }
+            .navigation a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Education</h2>
+        <form id="educationForm">
+            <div class="education-entry">
+                <label for="institution">Institution:</label>
+                <input type="text" id="institution" placeholder="Your Institution" required>
+                
+                <label for="degree">Degree:</label>
+                <input type="text" id="degree" placeholder="Your Degree" required>
+                
+                <label for="year">Year:</label>
+                <input type="text" id="year" placeholder="Graduation Year" required>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+        <div class="navigation">
+            <a href="personal.html">Back</a>
+            <a href="work.html">Next</a>
+        </div>
+    </div>
+
+    <script>
+        // Load saved data
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('education')) {
+                const data = JSON.parse(localStorage.getItem('education'));
+                document.getElementById('institution').value = data.institution || '';
+                document.getElementById('degree').value = data.degree || '';
+                document.getElementById('year').value = data.year || '';
+            }
+        });
+
+        // Save data to localStorage
+        document.getElementById('educationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const educationData = {
+                institution: document.getElementById('institution').value,
+                degree: document.getElementById('degree').value,
+                year: document.getElementById('year').value
+            };
+            localStorage.setItem('education', JSON.stringify(educationData));
+            alert('Education Information Saved!');
+        });
+    </script>
+</body>
+</html>
